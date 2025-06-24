@@ -28,6 +28,8 @@ export default function RootLayout({ children }) {
             <Link href="/" className="font-bold text-lg text-blue-700 dark:text-blue-300">IBMS</Link>
             <Link href="/inventory" className="hover:underline text-gray-700 dark:text-gray-200">Inventory</Link>
             <Link href="/billing" className="hover:underline text-gray-700 dark:text-gray-200">Billing</Link>
+            <Link href="/billing/bills" className="hover:underline text-gray-700 dark:text-gray-200">View Bills</Link>
+            
             <Link href="/customers" className="hover:underline text-gray-700 dark:text-gray-200">Customers</Link>
             <Link href="/reports" className="hover:underline text-gray-700 dark:text-gray-200">Reports</Link>
             <Link href="/settings" className="hover:underline text-gray-700 dark:text-gray-200">Settings</Link>

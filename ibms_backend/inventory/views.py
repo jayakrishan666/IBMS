@@ -250,3 +250,29 @@ def bill_pdf(request, id):
 
     except Exception as e:
         return HttpResponse(f"Error generating PDF: {str(e)}", status=500)
+
+@api_view(['GET'])
+def list_bills(request):
+    search = request.GET.get('search', '').strip()
+    start_date = request.GET.get('start_date')
+    end_date = request.GET.get('end_date')
+    bills = Bill.objects.select_related('customer').all().order_by('-date')
+    if search:
+        if search.isdigit():
+            bills = bills.filter(id=int(search))
+        else:
+            bills = bills.filter(customer__name__icontains=search)
+    if start_date:
+        bills = bills.filter(date__gte=start_date)
+    if end_date:
+        bills = bills.filter(date__lte=end_date)
+    data = [
+        {
+            'id': bill.id,
+            'date': bill.date,
+            'total': str(bill.total),
+            'customer': bill.customer.name,
+        }
+        for bill in bills
+    ]
+    return Response(data)
